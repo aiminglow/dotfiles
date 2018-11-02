@@ -50,9 +50,11 @@ autocmd BufWritePost $MYVIMRC source $MYVIMRC
 syntax enable
 " 允许用指定语法高亮配色方案替换默认方案
 syntax on
-" set background=dark
-" colorscheme solarized
-
+set background=dark
+colorscheme solarized
+" colorscheme default
+" 设置状态栏主题风格
+let g:Powerline_colorscheme='solarized256'
 " let mapleader = "\<Space>"
 " nnoremap <Leader>w :w<CR>
 " nmap <Leader><Leader> V
@@ -107,7 +109,7 @@ set ruler
 set number
 " 高亮显示当前行/列
 set cursorline
-" set cursorcolumn
+set cursorcolumn
 " 高亮显示搜索结果
 set hlsearch
 
@@ -148,9 +150,36 @@ let g:indent_guides_guide_size=1
 :nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 " NERDTree config
-map <F1> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
-autocmd vimenter * NERDTree
+" map <F1> :NERDTreeToggle<CR>
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
+" autocmd vimenter * NERDTree
 
 " 退格键不能用
 set backspace=indent,eol,start
+
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
+
+" YCM 补全菜单配色
+" 菜单
+" highlight Pmenu ctermfg=2 ctermbg=3 guifg=#005f87 guibg=#EEE8D5
+" 选中项
+" highlight PmenuSel ctermfg=2 ctermbg=3 guifg=#AFD700 guibg=#106900
+" 补全功能在注释中同样有效
+let g:ycm_complete_in_comments=1
+" 允许 vim 加载 .ycm_extra_conf.py 文件，不再提示
+let g:ycm_confirm_extra_conf=0
+" 开启 YCM 标签补全引擎
+let g:ycm_collect_identifiers_from_tags_files=1
+" 引入 C++ 标准库tags
+set tags+=/data/misc/software/misc./vim/stdcpp.tags
+" YCM 集成 OmniCppComplete 补全引擎，设置其快捷键
+" inoremap <leader>; <C-x><C-o>
+" 补全内容不以分割子窗口形式出现，只显示补全列表
+set completeopt-=preview
+" 从第一个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=1
+" 禁止缓存匹配项，每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
